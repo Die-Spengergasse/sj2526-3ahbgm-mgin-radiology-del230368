@@ -1,17 +1,36 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org" lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>Greeting</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <meta charset="UTF-8"/>
+    <title>Radiologie Institut</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<div class="container">
-    <h1>Hallo</h1>
-    Datum: <span th:text="${today}"></span>
-    <div>
-        <a href="/patient/list">patient list</a>
+<nav class="navbar">
+    <div class="nav-brand">Radiologie Institut</div>
+    <div class="nav-links">
+        <a th:href="@{/}">Übersicht</a>
+        <a th:href="@{/patienten/neu}">Patient registrieren</a>
+        <a th:href="@{/reservierungen/neu}">Reservierung erfassen</a>
+        <a th:href="@{/reservierungen/liste}">Reservierungsliste</a>
     </div>
-</div>
+</nav>
+<main class="container">
+    <h1>Willkommen im Reservierungssystem</h1>
+    <div class="card-grid">
+        <a th:href="@{/patienten/neu}" class="card">
+            <h2>👤 Patient registrieren</h2>
+            <p>Neuen Patienten mit SVN und persönlichen Daten erfassen.</p>
+        </a>
+        <a th:href="@{/reservierungen/neu}" class="card">
+            <h2>📋 Reservierung erfassen</h2>
+            <p>Untersuchungszeit für einen Patienten auf einem Gerät buchen.</p>
+        </a>
+        <a th:href="@{/reservierungen/liste}" class="card">
+            <h2>📅 Reservierungsliste</h2>
+            <p>Alle Reservierungen anzeigen und verwalten.</p>
+        </a>
+    </div>
+</main>
 </body>
 </html>

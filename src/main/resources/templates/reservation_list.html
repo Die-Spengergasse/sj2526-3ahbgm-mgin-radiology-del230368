@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="de">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Reservierungsliste</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-brand">Radiologie Institut</div>
+    <div class="nav-links">
+        <a th:href="@{/}">Übersicht</a>
+        <a th:href="@{/patienten/neu}">Patient registrieren</a>
+        <a th:href="@{/reservierungen/neu}">Reservierung erfassen</a>
+        <a th:href="@{/reservierungen/liste}">Reservierungsliste</a>
+    </div>
+</nav>
+<main class="container">
+    <h1>Reservierungsliste</h1>
+
+    <div th:if="${erfolgsmeldung}" class="alert alert-success" th:text="${erfolgsmeldung}"></div>
+
+    <form action="/reservierungen/liste" method="get" class="filter-form">
+        <select name="deviceId" class="form-control" onchange="this.form.submit()">
+            <option value="">Alle Geräte anzeigen</option>
+            <option th:each="d : ${devices}"
+                    th:value="${d.bezeichnung}"
+                    th:text="${d.bezeichnung} + ' – ' + ${d.type}"
+                    th:selected="${gewaehltesDevice != null
+                                  and gewaehltesDevice.bezeichnung == d.bezeichnung}">
+            </option>
+        </select>
+    </form>
+
+    <div th:if="${gewaehltesDevice}" class="info-box">
+        <strong th:text="${gewaehltesDevice.bezeichnung}"></strong> —
+        <span th:text="${gewaehltesDevice.type}"></span> —
+        Raum: <span th:text="${gewaehltesDevice.raumnummer}"></span>
+    </div>
+
+    <div th:if="${reservierungen != null and !reservierungen.isEmpty()}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Datum / Zeit</th>
+                <th>Patient</th>
+                <th>SVN</th>
+                <th>Gerät</th>
+                <th>Körperregion</th>
+                <th>Kommentar</th>
+                <th>Aktion</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="r : ${reservierungen}">
+                <td th:text="${#temporals.format(r.untersuchungszeit, 'dd.MM.yyyy HH:mm')}"></td>
+                <td th:text="${r.patient.vollerName}"></td>
+                <td th:text="${r.patient.svnummer}"></td>
+                <td th:text="${r.device.bezeichnung}"></td>
+                <td th:text="${r.koerperregion}"></td>
+                <td th:text="${r.kommentar}"></td>
+                <td>
+                    <form th:action="@{/reservierungen/loeschen/{id}(id=${r.id})}"
+                          method="post"
+                          onsubmit="return confirm('Wirklich löschen?')">
+                        <button type="submit" class="btn-danger">Löschen</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:if="${reservierungen == null or reservierungen.isEmpty()}"
+         class="empty-state">
+        Keine Reservierungen vorhanden.
+    </div>
+</main>
+</body>
+</html>

@@ -1,17 +1,60 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org" lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>add new patient</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <meta charset="UTF-8"/>
+    <title>Patient registrieren</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
-    <div class="container">
-        <form th:action="@{/patient/add}" th:object="${patient}" method="post">
-            <input type="text" th:field="*{name}" class="form-control" placeholder="patient name">
-            birth date <input type="date" th:field="*{birth}" class="form-control">
-            <input type="submit" class="form-control" value="Save">
-        </form>
+<nav class="navbar">
+    <div class="nav-brand">Radiologie Institut</div>
+    <div class="nav-links">
+        <a th:href="@{/}">Übersicht</a>
+        <a th:href="@{/patienten/neu}">Patient registrieren</a>
+        <a th:href="@{/reservierungen/neu}">Reservierung erfassen</a>
+        <a th:href="@{/reservierungen/liste}">Reservierungsliste</a>
     </div>
+</nav>
+<main class="container">
+    <h1>Patient registrieren</h1>
+
+    <div th:if="${erfolgsmeldung}" class="alert alert-success" th:text="${erfolgsmeldung}"></div>
+    <div th:if="${fehler}" class="alert alert-error" th:text="${fehler}"></div>
+
+    <form action="/patienten/neu" method="post" class="form-card">
+        <div class="form-group">
+            <label for="svnummer">Sozialversicherungsnummer *</label>
+            <input type="text" id="svnummer" name="svnummer"
+                   placeholder="10 Ziffern" class="form-control" required/>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="vorname">Vorname *</label>
+                <input type="text" id="vorname" name="vorname" class="form-control" required/>
+            </div>
+            <div class="form-group">
+                <label for="nachname">Nachname *</label>
+                <input type="text" id="nachname" name="nachname" class="form-control" required/>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="geschlecht">Geschlecht *</label>
+                <select id="geschlecht" name="geschlecht" class="form-control" required>
+                    <option value="">-- bitte wählen --</option>
+                    <option value="Männlich">Männlich</option>
+                    <option value="Weiblich">Weiblich</option>
+                    <option value="Divers">Divers</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="geburtsdatum">Geburtsdatum *</label>
+                <input type="date" id="geburtsdatum" name="geburtsdatum"
+                       class="form-control" required/>
+            </div>
+        </div>
+        <button type="submit" class="btn-primary">Patient registrieren</button>
+    </form>
+</main>
 </body>
 </html>
