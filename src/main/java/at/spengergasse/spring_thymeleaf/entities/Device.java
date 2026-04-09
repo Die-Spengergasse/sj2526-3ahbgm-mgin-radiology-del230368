@@ -1,51 +1,31 @@
 package at.spengergasse.spring_thymeleaf.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
-@Table(name = "devices")
 public class Device {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bezeichnung")
-    private int id;
-    @Column(name = "type")
+    private String id;
+
     private String type;
-    @Column(name= "Raumnummer")
-    private int raumnummer;
+    private String room;
 
     public Device() {}
-    public Device(int id, String type, int raumnummer) {
+
+    public Device(String id, String type, String room) {
         this.id = id;
         this.type = type;
-        this.raumnummer = raumnummer;
+        this.room = room;
     }
 
-    @Override
-    public String toString() {
-        return "Device{" +
-                "id=" + id +
-                ", type='" + type + '\'' +
-                ", raumnummer=" + raumnummer +
-                '}';
-    }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-    public String getType() {
-        return type;
-    }
-    public void setType(String type) {
-        this.type = type;
-    }
-    public int getRaumnummer() {
-        return raumnummer;
-    }
-    public void setRaumnummer(int raumnummer) {
-        this.raumnummer = raumnummer;
-    }
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
+
+    public String getRoom() { return room; }
+    public void setRoom(String room) { this.room = room; }
 }

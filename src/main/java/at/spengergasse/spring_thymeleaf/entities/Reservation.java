@@ -1,95 +1,39 @@
 package at.spengergasse.spring_thymeleaf.entities;
 
-
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "test")
 public class Reservation {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
-    @Column(name = "patient_id")
-    private int patientId;
-    @Column(name = "device_id")
-    private int deviceId;
-    @Column(name = "untersuchungszeit")
-    private LocalDateTime untersuchungszeit;
-    @Column(name = "koerperregion")
-    private String koerperregion;  // "Kopf", "Hals", "Thorax", ...
-    @Column(name = "kommentar", length = 1000)
-    private String kommentar;
+
+    private String patientName;
+    private String deviceId;
+
+    private LocalDateTime reservationTime;
+
+    private String bodyRegion;
+    private String comment;
 
     public Reservation() {}
-    public Reservation(int id, int patientId, int deviceId, LocalDateTime untersuchungszeit,
-                       String koerperregion, String kommentar) {
-        this.id = id;
-        this.patientId = patientId;
-        this.deviceId = deviceId;
-        this.untersuchungszeit = untersuchungszeit;
-        this.koerperregion = koerperregion;
-        this.kommentar = kommentar;
-    }
-    @Override
-    public String toString() {
-        return "Reservation{" +
-                "id=" + id +
-                ", patientId=" + patientId +
-                ", deviceId=" + deviceId +
-                ", untersuchungszeit=" + untersuchungszeit +
-                ", koerperregion='" + koerperregion + '\'' +
-                ", kommentar='" + kommentar + '\'' +
-                '}';
-    }
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public String getPatientName() { return patientName; }
+    public void setPatientName(String patientName) { this.patientName = patientName; }
 
-    public int getPatientId() {
-        return patientId;
-    }
+    public String getDeviceId() { return deviceId; }
+    public void setDeviceId(String deviceId) { this.deviceId = deviceId; }
 
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
-    }
+    public LocalDateTime getReservationTime() { return reservationTime; }
+    public void setReservationTime(LocalDateTime reservationTime) { this.reservationTime = reservationTime; }
 
-    public int getDeviceId() {
-        return deviceId;
-    }
+    public String getBodyRegion() { return bodyRegion; }
+    public void setBodyRegion(String bodyRegion) { this.bodyRegion = bodyRegion; }
 
-    public void setDeviceId(int deviceId) {
-        this.deviceId = deviceId;
-    }
-
-    public LocalDateTime getUntersuchungszeit() {
-        return untersuchungszeit;
-    }
-
-    public void setUntersuchungszeit(LocalDateTime untersuchungszeit) {
-        this.untersuchungszeit = untersuchungszeit;
-    }
-
-    public String getKoerperregion() {
-        return koerperregion;
-    }
-
-    public void setKoerperregion(String koerperregion) {
-        this.koerperregion = koerperregion;
-    }
-
-    public String getKommentar() {
-        return kommentar;
-    }
-
-    public void setKommentar(String kommentar) {
-        this.kommentar = kommentar;
-    }
+    public String getComment() { return comment; }
+    public void setComment(String comment) { this.comment = comment; }
 }

@@ -4,60 +4,34 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "p_patient")
 public class Patient {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    private int id;
 
-    @Column(name = "Svnummer", unique = true, nullable = false)
-    private String svnummer;
-
-    @Column(name = "Vorname")
-    private String vorname;
-
-    @Column(name = "Nachname")
-    private String nachname;
-
-    @Column(name = "Geschlecht")
-    private String geschlecht;  // "Männlich", "Weiblich", "Divers"
-
-    @Column(name = "Geburtsdatum")
-    private LocalDate geburtsdatum;
+    private Long insuranceNumber;
+    private String firstName;
+    private String surname;
+    private String gender;
+    private LocalDate birth;
 
     public Patient() {}
-    public Patient(Long id, String svnummer, String vorname, String nachname,
-                   String geschlecht, LocalDate geburtsdatum) {
-        this.id = id;
-        this.svnummer = svnummer;
-        this.vorname = vorname;
-        this.nachname = nachname;
-        this.geschlecht = geschlecht;
-        this.geburtsdatum = geburtsdatum;
-    }
 
-    public String getVollerName() {
-        return vorname + " " + nachname;
-    }
+    public int getId() { return id; }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getSvnummer() { return svnummer; }
-    public void setSvnummer(String svnummer) { this.svnummer = svnummer; }
-    public String getVorname() { return vorname; }
-    public void setVorname(String vorname) { this.vorname = vorname; }
-    public String getNachname() { return nachname; }
-    public void setNachname(String nachname) { this.nachname = nachname; }
-    public String getGeschlecht() { return geschlecht; }
-    public void setGeschlecht(String geschlecht) { this.geschlecht = geschlecht; }
-    public LocalDate getGeburtsdatum() { return geburtsdatum; }
-    public void setGeburtsdatum(LocalDate geburtsdatum) { this.geburtsdatum = geburtsdatum; }
+    public Long getInsuranceNumber() { return insuranceNumber; }
+    public void setInsuranceNumber(Long insuranceNumber) { this.insuranceNumber = insuranceNumber; }
 
-    @Override
-    public String toString() {
-        return "Patient{id=" + id + ", svnummer='" + svnummer + "', vorname='" + vorname +
-                "', nachname='" + nachname + "', geschlecht='" + geschlecht +
-                "', geburtsdatum=" + geburtsdatum + '}';
-    }
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+
+    public String getSurname() { return surname; }
+    public void setSurname(String surname) { this.surname = surname; }
+
+    public String getGender() { return gender; }
+    public void setGender(String gender) { this.gender = gender; }
+
+    public LocalDate getBirth() { return birth; }
+    public void setBirth(LocalDate birth) { this.birth = birth; }
 }

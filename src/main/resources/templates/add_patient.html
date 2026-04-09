@@ -1,60 +1,53 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="de">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
-    <title>Patient registrieren</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <title>Add Patient</title>
+
+    <style>
+        body { font-family: Arial; margin: 20px; }
+
+        input, select {
+            display: block;
+            margin: 5px 0 10px 0;
+            padding: 5px;
+        }
+
+        button {
+            background-color: cornflowerblue;
+            border: none;
+            padding: 8px;
+        }
+    </style>
 </head>
 <body>
-<nav class="navbar">
-    <div class="nav-brand">Radiologie Institut</div>
-    <div class="nav-links">
-        <a th:href="@{/}">Übersicht</a>
-        <a th:href="@{/patienten/neu}">Patient registrieren</a>
-        <a th:href="@{/reservierungen/neu}">Reservierung erfassen</a>
-        <a th:href="@{/reservierungen/liste}">Reservierungsliste</a>
-    </div>
-</nav>
-<main class="container">
-    <h1>Patient registrieren</h1>
 
-    <div th:if="${erfolgsmeldung}" class="alert alert-success" th:text="${erfolgsmeldung}"></div>
-    <div th:if="${fehler}" class="alert alert-error" th:text="${fehler}"></div>
+<h2>Add New Patient</h2>
 
-    <form action="/patienten/neu" method="post" class="form-card">
-        <div class="form-group">
-            <label for="svnummer">Sozialversicherungsnummer *</label>
-            <input type="text" id="svnummer" name="svnummer"
-                   placeholder="10 Ziffern" class="form-control" required/>
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="vorname">Vorname *</label>
-                <input type="text" id="vorname" name="vorname" class="form-control" required/>
-            </div>
-            <div class="form-group">
-                <label for="nachname">Nachname *</label>
-                <input type="text" id="nachname" name="nachname" class="form-control" required/>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="geschlecht">Geschlecht *</label>
-                <select id="geschlecht" name="geschlecht" class="form-control" required>
-                    <option value="">-- bitte wählen --</option>
-                    <option value="Männlich">Männlich</option>
-                    <option value="Weiblich">Weiblich</option>
-                    <option value="Divers">Divers</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="geburtsdatum">Geburtsdatum *</label>
-                <input type="date" id="geburtsdatum" name="geburtsdatum"
-                       class="form-control" required/>
-            </div>
-        </div>
-        <button type="submit" class="btn-primary">Patient registrieren</button>
-    </form>
-</main>
+<form th:action="@{/patient/add}" th:object="${patient}" method="post">
+
+    Insurance Number:
+    <input type="text" th:field="*{insuranceNumber}">
+
+    First Name:
+    <input type="text" th:field="*{firstName}">
+
+    Last Name:
+    <input type="text" th:field="*{surname}">
+
+    Gender:
+    <select th:field="*{gender}">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+    </select>
+
+    Birth Date:
+    <input type="date" th:field="*{birth}">
+
+    <button type="submit">Save</button>
+
+</form>
+
+<a href="/">Back</a>
+
 </body>
 </html>

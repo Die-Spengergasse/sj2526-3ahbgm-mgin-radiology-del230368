@@ -1,36 +1,39 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="de">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
-    <title>Radiologie Institut</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <title>Radiology</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+        }
+
+        a {
+            display: inline-block;
+            margin: 5px;
+            padding: 8px 12px;
+            background-color: cornflowerblue;
+            color: black;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        a:hover {
+            background-color: dodgerblue;
+        }
+    </style>
 </head>
 <body>
-<nav class="navbar">
-    <div class="nav-brand">Radiologie Institut</div>
-    <div class="nav-links">
-        <a th:href="@{/}">Übersicht</a>
-        <a th:href="@{/patienten/neu}">Patient registrieren</a>
-        <a th:href="@{/reservierungen/neu}">Reservierung erfassen</a>
-        <a th:href="@{/reservierungen/liste}">Reservierungsliste</a>
-    </div>
-</nav>
-<main class="container">
-    <h1>Willkommen im Reservierungssystem</h1>
-    <div class="card-grid">
-        <a th:href="@{/patienten/neu}" class="card">
-            <h2>👤 Patient registrieren</h2>
-            <p>Neuen Patienten mit SVN und persönlichen Daten erfassen.</p>
-        </a>
-        <a th:href="@{/reservierungen/neu}" class="card">
-            <h2>📋 Reservierung erfassen</h2>
-            <p>Untersuchungszeit für einen Patienten auf einem Gerät buchen.</p>
-        </a>
-        <a th:href="@{/reservierungen/liste}" class="card">
-            <h2>📅 Reservierungsliste</h2>
-            <p>Alle Reservierungen anzeigen und verwalten.</p>
-        </a>
-    </div>
-</main>
+
+<h1>Radiology Institute</h1>
+
+<p>Date: <span th:text="${today}"></span></p>
+
+<a href="/patient/add">Add Patient</a>
+<a href="/patient/list">Patient List</a>
+<a href="/reservation/add">Add Reservation</a>
+<a href="/reservation/list">Reservation List</a>
+
 </body>
 </html>
