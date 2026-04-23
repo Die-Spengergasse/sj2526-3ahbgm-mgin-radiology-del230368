@@ -29,8 +29,23 @@ public class PatientController {
     }
 
     @PostMapping("/add")
-    public String save(@ModelAttribute Patient patient) {
-        patientRepository.save(patient);
+    public String save(@ModelAttribute Patient patient, Model model) {
+
+
+        if (patient.getBirth().isAfter(java.time.LocalDate.now())) {
+            model.addAttribute("error", "Geburtsdatum darf nicht in der Zukunft liegen!");
+            model.addAttribute("patient", patient);
+            return "add_patient";
+        }
+
+        try {
+            patientRepository.save(patient);
+        } catch (Exception e) {
+            model.addAttribute("error", "Datenbankfehler!");
+            model.addAttribute("patient", patient);
+            return "add_patient";
+        }
+
         return "redirect:/patient/list";
     }
 }

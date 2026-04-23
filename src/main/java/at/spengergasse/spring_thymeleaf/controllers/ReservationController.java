@@ -39,15 +39,29 @@ public class ReservationController {
         return "add_reservation";
     }
 
-    @PostMapping("/add")
-    public String save(@ModelAttribute Reservation reservation) {
-        reservationRepository.save(reservation);
-        return "redirect:/reservation/list";
-    }
 
     @GetMapping("/list")
     public String list(Model model) {
         model.addAttribute("reservations", reservationRepository.findAll());
         return "reservation_list";
+    }
+    @PostMapping("/add")
+    public String save(@ModelAttribute Reservation reservation, Model model) {
+
+        if (reservation.getReservationTime().isBefore(java.time.LocalDateTime.now())) {
+            model.addAttribute("error", "Termin liegt in der Vergangenheit!");
+            model.addAttribute("reservation", reservation);
+            return "add_reservation";
+        }
+
+        try {
+            reservationRepository.save(reservation);
+        } catch (Exception e) {
+            model.addAttribute("error", "DB Fehler!");
+            model.addAttribute("reservation", reservation);
+            return "add_reservation";
+        }
+
+        return "redirect:/reservation/list";
     }
 }

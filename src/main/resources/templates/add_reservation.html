@@ -20,6 +20,9 @@
     </style>
 </head>
 <body>
+<div th:if="${error}" style="color:red;">
+    <p th:text="${error}"></p>
+</div>
 
 <h2>Add Reservation</h2>
 
